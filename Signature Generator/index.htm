@@ -1,0 +1,268 @@
+<html>
+<head>
+    <title>Hennepin County::signature creator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function ()
+        { 
+            $('#preview_btn').on('click', function()
+            {
+                var first_name = $('#fname').val();
+                var last_name = $('#lname').val();
+                var phone = $('#phone').val();
+                var email = $('#email').val();
+                var department = $('#department').val();
+                var address = $('#address').val();
+                var website = $('#website').val();
+                var isValid = true;
+                
+                $('#first_name_error').removeClass("error");
+                $('#last_name_error').removeClass("error");
+                $('#phone_error').removeClass("error");
+                $('#email_error').removeClass("error");
+                $('#department_error').removeClass("error");
+                $('#address_error').removeClass("error");
+                $('#website_error').removeClass("error");
+                $('#gen_error').hide();
+                
+                if(!first_name)
+                {
+                    $('#first_name_error').addClass("error");
+                    isValid = false;
+                }
+                if(!last_name)
+                {
+                    $('#last_name_error').addClass("error");
+                    isValid = false;
+                }
+                if(!phone)
+                {
+                    $('#phone_error').addClass("error");
+                    isValid = false;
+                }
+                if(!isEmail(email))
+                {
+                    $('#email_error').addClass("error");
+                    isValid = false;
+                }
+                if(!department)
+                {
+                    $('#department_error').addClass("error");
+                    isValid = false;
+                }
+                if(!address)
+                {
+                    $('#address_error').addClass("error");
+                    isValid = false;
+                }
+                if(!website)
+                {
+                    $('#website_error').addClass("error");
+                    isValid = false;
+                }
+                
+                if(isValid)
+                {
+                    $('#fname_prv_val').html(first_name);
+                    $('#lname_prv_val').html(last_name);
+                    $('#phone_prv_val').html(phone);
+                    $('#email_prv_val').text(email);
+                    $('#email_prv_val').attr('href', "mailto:" + email);
+                    $('#department_prv_val').html(department);
+                    $('#address_prv_val').html(address);
+                    $('#website_prv_val').text(website);
+                    $('#website_prv_val').attr('href', "http://www." + website);
+                    
+                    $('#preview_panel').show();
+                }
+                else{
+                    $('#preview_panel').hide();
+                    $('#gen_error').show();
+                    
+                }
+                
+            });
+            
+            $('.close').on('click', function()
+            {
+                $('#preview_panel').fadeOut("slow");
+            });
+            
+            
+        });
+        
+        function isEmail(email) {
+          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          return regex.test(email);
+        }
+    </script>
+    
+    <style>
+        /* css style by tag name */
+        body{
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 1em;
+            
+        }
+        h1{
+            color: #0058a4;
+        }
+        fieldset{
+            width: 709px;
+            margin: auto auto auto 0px; 
+            border: 1px solid #ccc;
+            padding: 30px;
+        }
+        legend{
+            color: #0058a4;
+            font-weight: bold;
+        }
+        /* css style by id */
+        #wrapper{
+            border: 0px solid #ccc;
+        }
+        #preview_panel, #generate_signature_panel{
+            display: none;
+        }
+        
+        /* css style by class */
+        .label{
+            line-height: 14px;
+            font-size: .9em;
+            font-weight: bold;
+        }
+        .txt_input{
+            border: 1px solid #cccccc;
+            font-size: 100%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .btn{
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: #0058a4;
+            color: white;
+        }
+        .close{
+            float: right;
+        }
+        .error {
+            color: red;
+        }
+        
+        .required {
+            color: red;
+        }
+        
+        div.editable {
+            width: 800px;
+            height: 400px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">    
+    <h1> Hennepin County employee signature creator</h1>
+    <fieldset>
+        <legend>Employee Information </legend>
+        <table>
+            <tr>
+                <td class="label"><span class="required">*</span> <span id="first_name_error">First name </span></td>
+                <td><input type="text" name="fname" id="fname" class="txt_input"></td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span><span id="last_name_error"> Last name </span></td>
+                <td><input type="text" name="lname" id="lname" class="txt_input"></td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span><span id="phone_error"> Phone</span></td>
+                <td><input type="phone" name="phone" id="phone" class="txt_input"></td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span> <span id="email_error"> Email</span></td>
+                <td><input type="email" name="email" id="email" class="txt_input"></td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span> <span id="department_error"> Department </span></td>
+                <td><input type="text" name="department" id="department" class="txt_input" style="width: 98%"></td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span> <span id="address_error"> Address </span></td>
+                <td>
+                <textarea rows="4" cols="55" class="txt_input" id="address">Government Center/N.E. Street Level <br>300 South Sixth Street <br>Minneapolis, Minnesota 55487-0011
+                </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><span class="required">*</span> <span id="website_error"> Website</span></td>
+                <td><input type="text" name="website" id="website" class="txt_input" value="hennepin.us"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" id="preview_btn" value="Generate Signiture" class="btn"> 
+                    <span class="error" id="gen_error" style="display: none;"> Please fill in the highlighted fields</span>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <table>
+        <tr>
+            <td id="preview_panel">
+                <fieldset >
+                    <span class="close">X</span>
+                    <legend>Preview signature</legend>
+                    <table width="400" border="0" cellpadding="0" cellspacing="0" >
+                      <tr>
+                        <td width="310" height="82" style="font-family: 'Segoe UI', Arial, sans-serif; color: #808080; font-size: 15px; font-weight: 400;">
+                          <font style="font-size: 24px; color: #0058a4; font-weight: 100;"><span id="fname_prv_val"> </span> <span id="lname_prv_val"> </span> </font><br>
+                          <p style="margin-top: 2px; font-weight: 100;" id="department_prv_val"></p>
+                          <p style="font-size: 14px; margin-top:20px;"> <span id="phone_prv_val"></span> | <a  style="color: #0058a4;" id="email_prv_val"></a> | <a  style="color: #0058a4;" id="website_prv_val"></a></p>
+                        </td>
+                      </tr>
+                      <tr>
+                    	  <td style="font-family: 'Segoe UI', Arial, sans-serif; color: #808080; font-size: 14px; font-weight: 400; padding-top:20px;">
+                          <p id="address_prv_val">
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                    	<td style="padding-top:25px;">
+                          <img alt="Hennepin County logo" src="http://www.hennepin.us/assets/images/H-email-signature.png" width="40" height="51" style="margin: 0; border: 0; padding: 0; display: block;">
+                        </td>
+                      </tr>
+                    </table>
+                </fieldset>
+                <i>Please copy the above generated signature and paste it to your email client. Thanks!</i>
+            </td>
+            <td>
+                <fieldset id="generate_signature_panel">
+                    <span class="close">X</span>
+                    <legend>Signature</legend>
+                    <span  id="html_signature"></span>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>

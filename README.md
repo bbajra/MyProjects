@@ -1,3 +1,3 @@
 # MyProjects
 Completed projects
-Contails worked on projects
+contains worked on projects

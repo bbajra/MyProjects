@@ -3,13 +3,21 @@ https://www.google.com/search?ei=-4QVW_SFO9CkzwLMopbICA&q=python+program+to+save
 https://stackoverflow.com/questions/45468005/parse-url-beautifulsoup?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 '''
 
-
+#import dependencies
 import requests, re
 from bs4 import BeautifulSoup
+
+#Ask for input: Keyword/term
+
 query = input("Input the word: ")
+
+#Search the keyword/term in google
 page = requests.get("https://www.google.dz/search?q="+query)
 soup = BeautifulSoup(page.content, "html5lib")
+
 outFile = open(query+'.txt','w') 
+
+#Parse the html obtained from google to a href links, split and ignore unwanted terms in the link '&s' and sace the output in text file. 
 for link in  soup.find_all("a",href=re.compile("(?<=/url\?q=)(htt.*://.*)")):
     wordList = link["href"].replace("/url?q=","").split('&')[0]
     #wordList = re.split(":(?=http)",link["href"].replace("/url?q=","").split('&')[0])
